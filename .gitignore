@@ -1,0 +1,15 @@
+# node.js
+#
+node_modules/
+node_modules
+npm-debug.log
+
+# OSX
+#
+.DS_Store
+pid
+# Xcode
+#
+Libraries/
+libraries/
+build/
