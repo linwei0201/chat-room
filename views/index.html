@@ -31,7 +31,7 @@
 
         socket.on('chat message', function(obj){
           var tpl = '<div class="user">' +
-                      obj.user + "发表于" + (new Date(obj.time).toLocaleString()) +
+                      obj.user + "   发表于" + (new Date(obj.time).toLocaleString()) +
                     '</div>' +
                     '<div class="msg">' +
                       obj.msg +
