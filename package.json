@@ -1,0 +1,19 @@
+{
+  "name": "chat-room",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linwei0201/chat-room.git"
+  },
+  "author": "Lin Wei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linwei0201/chat-room/issues"
+  },
+  "homepage": "https://github.com/linwei0201/chat-room#readme"
+}
