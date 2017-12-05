@@ -14,8 +14,12 @@
     </style>
   </head>
   <body>
+    <% if(isLogined){ %>
+        <p>当前登录用户：<%= name %>，<a href="/logout" id="logout">退出登陆</a></p>
+    <% }%>
     <ul id="messages"></ul>
     <form action="">
+      <input id="user" type="hidden" value=<%=name%> />
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
@@ -24,13 +28,16 @@
       $(function () {
         var socket = io();
         $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
+          socket.emit('chat message', {
+            'msg': $('#m').val(),
+            'user': $('#user').val()
+          });
           $('#m').val('');
           return false;
         });
 
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
+        socket.on('chat message', function(obj){
+          $('#messages').append($('<li>').text(obj.msg+'    from:'+obj.user));
         });
       });
     </script>
