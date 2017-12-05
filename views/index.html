@@ -16,27 +16,36 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+      function showText(obj, isSelf){
+        var tpl = '<div class="user">' +
+                    obj.user + "   发表于" + (new Date(obj.time).toLocaleString()) +
+                  '</div>' +
+                  '<div class="msg">' +
+                    obj.msg +
+                  '</div>';
+        $('#messages').append($('<li class="' + (isSelf ? 'is-self' : '') +'">').html(tpl));
+      }
 
       $(function () {
         var socket = io();
         $('form').submit(function(){
-          socket.emit('chat message', {
+          var obj = {
             'msg': $('#m').val(),
             'user': $('#user').val(),
             'time': new Date().getTime()
-          });
+          };
+          socket.emit('chat message', obj);
           $('#m').val('');
+          showText(obj, true);
           return false;
         });
 
         socket.on('chat message', function(obj){
-          var tpl = '<div class="user">' +
-                      obj.user + "   发表于" + (new Date(obj.time).toLocaleString()) +
-                    '</div>' +
-                    '<div class="msg">' +
-                      obj.msg +
-                    '</div>';
-          $('#messages').append($('<li>').html(tpl));
+          var user = $('#user').val();
+          if(user == obj.user){
+            return false;
+          }
+          showText(obj);
         });
       });
     </script>

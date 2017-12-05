@@ -15,6 +15,10 @@ body { font: 13px Helvetica, Arial; }
   background: #eee;
 }
 
+#messages li.is-self {
+  text-align: right;
+}
+
 #messages li .user {
   font-size: 12px;
   font-weight: bold;
