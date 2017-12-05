@@ -7,6 +7,7 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var bodyParser = require('body-parser');
 
+app.use(express.static(__dirname + '/styles'))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
