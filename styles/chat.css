@@ -69,3 +69,12 @@ form button {
   color: #fff;
   font-size: 16px;
 }
+
+.welcome-msg a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.welcome-msg a:hover {
+  color: #fff;
+}
