@@ -11,7 +11,7 @@ body { font: 13px Helvetica, Arial; }
   padding: 5px 10px;
 }
 
-#messages li:nth-child(odd) {
+#messages li:nth-child(even) {
   background: #eee;
 }
 
@@ -29,6 +29,13 @@ body { font: 13px Helvetica, Arial; }
 #messages li .msg {
   font-size: 16px;
   font-weight: normal;
+}
+
+.broadcast-msg {
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  line-height: 25px;
+  color: #fff;
 }
 
 form {

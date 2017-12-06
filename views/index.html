@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Socket.IO chat</title>
+    <title>聊天室</title>
     <link href="/chat.css" type="text/css" rel="stylesheet">
   </head>
   <body>
     <% if(isLogined){ %>
         <p class="welcome-msg">欢迎光临聊天室，当前登录用户：<%= name %>，<a href="/logout" id="logout">退出登陆</a></p>
     <% }%>
+    <div class="broadcast-msg"></div>
     <ul id="messages"></ul>
     <form action="">
       <input id="user" type="hidden" value=<%=name%> />
-      <input id="m" placeholder="请输入聊天内容" autocomplete="off" /><button>发送</button>
+      <input id="m" placeholder="请输入聊天内容" autocomplete="off" />
+      <button>发送</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+      var timer;
       function showText(obj, isSelf){
         var tpl = '<div class="user">' +
                     obj.user + "   发表于" + (new Date(obj.time).toLocaleString()) +
@@ -24,6 +27,22 @@
                     obj.msg +
                   '</div>';
         $('#messages').append($('<li class="' + (isSelf ? 'is-self' : '') +'">').html(tpl));
+      }
+
+      function showInputing(user){
+        clearTimeout(timer);
+        var tpl = '<div class="entering">' +
+                    '<span class="user">' +
+                      user +
+                    '</span>' +
+                    '<span>' +
+                      '正在输入...'
+                    '</span>' +
+                  '</div>';
+        $('.broadcast-msg').html(tpl);
+        timer = setTimeout(function(){
+          $('.broadcast-msg').html('');
+        }, 1000);
       }
 
       $(function () {
@@ -46,6 +65,22 @@
             return false;
           }
           showText(obj);
+        });
+
+        socket.on('chat inputing', function(obj){
+          var user = $('#user').val();
+          if(user == obj.user){
+            return false;
+          }
+          showInputing(obj.user);
+        })
+
+        $('#m').on('keyup', function(){
+          var val = $(this).val();
+          console.log("typing", val)
+          socket.emit('chat inputing', {
+            'user': $('#user').val()
+          });
         });
       });
     </script>

@@ -100,6 +100,10 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 
+  socket.on('chat inputing', function(data){
+    io.emit('chat inputing', data);
+  });
+
   // socket.on('disconnect', function(){
   //   console.log('user disconnected');
   // });
